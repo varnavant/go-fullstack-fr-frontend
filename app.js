@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -10,6 +11,15 @@ app.use((req, res, next) => {
     // set up the method we can use
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next(); // tell the server to go to next middleware
+});
+
+app.use(bodyParser.json());
+
+app.post('/api/stuff', (req, res, next) => {
+    console.log(req.body);
+    res.status(201).json({
+        message: 'object created !'
+    });
 });
 
 app.use('/api/stuff', (req, res, next) => {

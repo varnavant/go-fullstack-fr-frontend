@@ -21,4 +21,5 @@ install framework express
 to use the framework express, you need to create a file app.js
 and set up the var
 
-
+add body parser to parse form
+`npm install body-parser --save` 
