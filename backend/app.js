@@ -26,25 +26,17 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.post('/api/products', (req, res, next) => {
-    const product = new Product({
-        "name": 'test',
-        "description": 'test',
-        "price": 5000,
-        "inStock": true
-    });
+    let updateValues  = { $set: { name: "test", description: "Canyon 123", price: 5000, inStock: false } };
+    const product = new Product(updateValues);
+
     product.save()
         .then( product => res.status(201).json(product))
         .catch(error => res.status(400).json({ error }));
 });
 
 app.put('/api/products/:id', (req, res, next) => {
-    Product.updateOne({ _id: req.params.id }, {
-        "name": 'test',
-        "description": 'test',
-        "price": 5000,
-        "inStock": true
-    , _id: req.params.id
-    })
+    let updateValues  = { $set: {_id: req.params.id, name: "test", description: "Canyon 123", price: 5000, inStock: false } };
+    Product.updateOne({ _id: req.params.id }, updateValues)
         .then(() => res.status(200).json({ message: 'Modified!'}))
         .catch(error => res.status(400).json({ error }));
 });
