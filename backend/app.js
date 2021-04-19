@@ -9,7 +9,7 @@ const app = express();
 mongoose.connect('mongodb+srv://varnavant:varnavant@12!test@cluster0.j02zm.mongodb.net/productDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true,
         useUnifiedTopology: true })
-    .then(() => console.log('Connexion success !'))
+    .then(() => console.log('Connexion success test!'))
     .catch(() => console.log('Connexion failed !'));
 
 // need to be on top, it has to be the first executed middleware on the server
@@ -25,6 +25,11 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(bodyParser.json());
 
+app.get('/api/products', (req, res, next) => {
+    Product.find()
+        .then(products => res.status(200).json(products))
+        .catch(error => res.status(400).json({ error }));
+});
 app.post('/api/products', (req, res, next) => {
     let updateValues  = { $set: { name: "test", description: "Canyon 123", price: 5000, inStock: false } };
     const product = new Product(updateValues);
@@ -53,10 +58,6 @@ app.get('/api/products/:id', (req, res, next) => {
         .catch(error => res.status(404).json({ error }));
 });
 
-app.get('/api/products', (req, res, next) => {
-    Product.find()
-        .then(products => res.status(200).json(products))
-        .catch(error => res.status(400).json({ error }));
-});
+
 
 module.exports = app;
