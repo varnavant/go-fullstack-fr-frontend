@@ -21,5 +21,40 @@ install framework express
 to use the framework express, you need to create a file app.js
 and set up the var
 
+<<<<<<< Updated upstream
 add body parser to parse form
 `npm install body-parser --save` 
+=======
+## set up mongo db
+`npm install --save mongoose`
+
+on app.js add
+`const mongoose = require('mongoose');`
+
++ add these line to connect to the server (get the string connexion from mongo db atlas website after create a new cluster)
+`mongoose.connect('mongodb+srv://varnavant:<password>@cluster0.j02zm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+  useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));`
+
+## launch frontend
+`node server`
+
+## launch backend
+`nodemon server`
+
+##url 
+http://localhost:4200/
+
+
+## user auth
+npm install --save mongoose-unique-validator
+npm install --save bcrypt
+
+## token
+npm install --save jsonwebtoken
+
+## implementation la gestion de fichier
+npm install --save multer
+>>>>>>> Stashed changes
