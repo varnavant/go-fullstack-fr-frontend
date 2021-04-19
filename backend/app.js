@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 const Product = require('./models/product');
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
 
 mongoose.connect('mongodb+srv://varnavant:varnavant@12!test@cluster0.j02zm.mongodb.net/productDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true,
@@ -22,7 +27,10 @@ app.use(bodyParser.json());
 
 app.post('/api/products', (req, res, next) => {
     const product = new Product({
-        ...req.body // copy all element in req.body
+        "name": 'test',
+        "description": 'test',
+        "price": 5000,
+        "inStock": true
     });
     product.save()
         .then( product => res.status(201).json(product))
